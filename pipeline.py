@@ -47,9 +47,4 @@ def rephrase_caption(base_caption, tone):
 def process_image(image_path):
     caption = generate_caption(image_path)
     hashtags = generate_hashtags(caption)
-    # tones_output = rephrase_caption(caption)
     return caption, hashtags
-
-# if __name__ == "__main__":
-#     test_image = "Data/samples/cat.jpg"   
-#     process_image(test_image)
