@@ -71,10 +71,28 @@ Then open the provided local URL (usually http://localhost:8501) in your browser
 ---
 
 ## ⚡ How It Works
--Image Upload → User uploads an image (or uses default sample).
+- 1. **Image Upload** → User uploads an image (or uses default sample).
 
--Caption Generation → BLIP model generates a natural caption.
+- 2. **Caption Generation** → BLIP model generates a natural caption.
 
--Hashtag Extraction → KeyBERT extracts top keywords as hashtags.
+- 3. **Hashtag Extraction** → KeyBERT extracts top keywords as hashtags.
 
--Tone Rephrasing → User selects a tone and LLaMA 3.1 rewrites the caption accordingly.
+- 4. **Tone Rephrasing** → User selects a tone and LLaMA 3.1 rewrites the caption accordingly.
+
+---
+
+## 📊 Model Evaluation (Optional)
+To evaluate BLIP performance on the mini COCO dataset:
+```bash
+python model_testing.py
+```
+- Computes BLEU score between generated and ground-truth captions.
+
+- Uses annotations from data/annotations and images from data/mini_val2014.
+You can regenerate your mini subset using:
+```bash
+python prepare_mini_dataset.py
+```
+
+---
+
