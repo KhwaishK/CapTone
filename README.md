@@ -41,3 +41,14 @@ It also includes model evaluation on a mini COCO dataset subset, using **BLEU sc
 └── README.md
 ```
 
+---
+
+## ⚙️ Installation & Setup
+### 1️⃣ Clone the repository 
+```bash
+git clone https://github.com/<your-username>/AI-Captioning-Rephrasing-Tool.git
+cd AI-Captioning-Rephrasing-Tool
+```
+
+---
+
