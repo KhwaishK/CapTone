@@ -46,9 +46,27 @@ It also includes model evaluation on a mini COCO dataset subset, using **BLEU sc
 ## ⚙️ Installation & Setup
 ### 1️⃣ Clone the repository 
 ```bash
-git clone https://github.com/<your-username>/AI-Captioning-Rephrasing-Tool.git
+git clone https://github.com/KhwaishK/CapTone.git
 cd AI-Captioning-Rephrasing-Tool
+```
+
+### 2️⃣ Create a virtual environment
+```bash
+python -m venv captionenv
+captionenv\Scripts\activate   # (Windows)
+# OR
+source captionenv/bin/activate  # (Mac/Linux)
+```
+
+### 3️⃣ Install dependencies
+```bash
+pip install -r requirements.txt
 ```
 
 ---
 
+### ▶️ Running the App Locally
+```bash
+streamlit run app.py
+```
+Then open the provided local URL (usually http://localhost:8501) in your browser.
