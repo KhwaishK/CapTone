@@ -1,6 +1,6 @@
 import os
 
-# Redirect caches to temporary folders 
+# Redirect caches to temporary folders (prevents storage overflow)
 os.environ["TRANSFORMERS_CACHE"] = "/tmp/hf_cache"
 os.environ["HF_HOME"] = "/tmp/hf_home"
 os.environ["HF_HUB_CACHE"] = "/tmp/hf_hub"
@@ -20,44 +20,76 @@ import streamlit as st
 from pipeline import process_image, rephrase_caption
 import yaml
 
-# Page config
-st.set_page_config(page_title="AI Captioning & Rephrasing Tool", layout="wide")
-
-# Load config
-config_path = os.path.join(os.path.dirname(__file__), "params.yaml")
-with open(config_path) as f:
+# -------------------------------
+# Load configuration
+# -------------------------------
+with open("params.yaml") as f:
     params = yaml.safe_load(f)
 
 DEFAULT_IMAGE = params["ui"]["test_image"]
 AVAILABLE_TONES = params["llm"]["tones"]
 
-# Custom CSS styling (optional)
-st.markdown("""
-    <style>
-    .stApp { background-color: #0e1117; color: #ffffff; font-family: 'Segoe UI', sans-serif; }
-    h1 { text-align: center; color: #4CAF50; font-size: 2.2em; }
-    .stButton>button { background-color: #4CAF50; color: white; border-radius: 12px; padding: 0.6em 1.2em; font-size: 16px; font-weight: bold; }
-    .stButton>button:hover { background-color: #45a049; transform: scale(1.03); }
-    .css-1d391kg { background-color: #1a1a2e !important; }
-    </style>
-""", unsafe_allow_html=True)
+# Page setup
+st.set_page_config(page_title="AI Captioning & Rephrasing Tool", layout="wide")
+st.title("📸 AI Captioning & Rephrasing Tool")
 
-st.title("AI Captioning & Rephrasing Tool")
+# -------------------------------
+# Sidebar settings
+# -------------------------------
+st.sidebar.header("⚙️ Settings")
+selected_tone = st.sidebar.selectbox("Choose a tone:", AVAILABLE_TONES)
 
-# Sidebar
-st.sidebar.header("Settings")
-selected_tone = st.sidebar.selectbox("Choose a tone", AVAILABLE_TONES)
-
-# File uploader
+# -------------------------------
+# File upload section
+# -------------------------------
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png"])
 
-if uploaded_file:
-    caption, hashtags = process_image(uploaded_file)
-    image_to_show = uploaded_file
-else:
+# -------------------------------
+# Session state initialization
+# -------------------------------
+if "caption" not in st.session_state:
+    st.session_state.caption = None
+if "hashtags" not in st.session_state:
+    st.session_state.hashtags = []
+if "image_path" not in st.session_state:
+    st.session_state.image_path = DEFAULT_IMAGE
+
+# -------------------------------
+# Process image (with caching)
+# -------------------------------
+@st.cache_data(show_spinner=False)
+def get_caption_and_tags(image):
+    return process_image(image)
+
+# If user uploads image
+if uploaded_file is not None:
+    st.session_state.image_path = uploaded_file
+    st.session_state.caption, st.session_state.hashtags = get_caption_and_tags(uploaded_file)
+
+# If no image uploaded, use default
+elif st.session_state.caption is None:
     st.info("Using default test image")
-    caption, hashtags = process_image(DEFAULT_IMAGE)
-    image_to_show = DEFAULT_IMAGE
+    st.session_state.caption, st.session_state.hashtags = get_caption_and_tags(DEFAULT_IMAGE)
+
+# -------------------------------
+# Layout display
+# -------------------------------
+col1, col2 = st.columns([1, 2])
+
+with col1:
+    st.image(st.session_state.image_path, use_container_width=True)
+
+with col2:
+    with st.expander("🖋️ Generated Caption", expanded=True):
+        st.write(st.session_state.caption)
+
+    with st.expander("🏷️ Hashtags", expanded=True):
+        st.write(", ".join(st.session_state.hashtags))
+
+    with st.expander("🎭 Rephrased Caption", expanded=True):
+        if st.button("✨ Rephrase"):
+            tone_caption = rephrase_caption(st.session_state.caption, selected_tone)
+            st.write(f"**{selected_tone} tone:** {tone_caption}")
 
 # Two-column layout
 col1, col2 = st.columns([1, 2])
