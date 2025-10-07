@@ -132,7 +132,7 @@ ui:
 ## 🧠 Tech Stack
 - **Transformers** – Hugging Face BLIP model for captioning
 - **KeyBERT** – Keyword extraction for hashtags
-- **Ollama (LLaMA 3.1)** – Tone-based rephrasing
+- **Groq API Key (LLaMA 3.1)** – Tone-based rephrasing
 - **Streamlit** – Interactive user interface
 - **PyTorch, Pandas, Pillow, NLTK** – Core ML and evaluation utilities
 
@@ -153,5 +153,5 @@ Pull requests are welcome! Feel free to open issues to suggest improvements or r
 
 ## 👩‍💻 Author
 Khwaish Khandelwal
--AI/ML Enthusiast | Computer Vision | NLP | Data Science | 
+- AI/ML Enthusiast | Computer Vision | NLP | Data Science | 
 [LinkedIn](https://www.linkedin.com/in/khwaish-khandelwal-543b9725a/) | [GitHub](https://github.com/KhwaishK)
