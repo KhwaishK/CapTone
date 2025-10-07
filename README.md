@@ -72,6 +72,9 @@ Then open the provided local URL (usually http://localhost:8501) in your browser
 
 ## ⚡ How It Works
 -Image Upload → User uploads an image (or uses default sample).
+
 -Caption Generation → BLIP model generates a natural caption.
+
 -Hashtag Extraction → KeyBERT extracts top keywords as hashtags.
+
 -Tone Rephrasing → User selects a tone and LLaMA 3.1 rewrites the caption accordingly.
