@@ -1,11 +1,31 @@
+import os
+
+# Redirect Hugging Face caches to temporary storage to prevent 50GB limit issues
+os.environ["TRANSFORMERS_CACHE"] = "/tmp/hf_cache"
+os.environ["HF_HOME"] = "/tmp/hf_home"
+os.environ["HF_HUB_CACHE"] = "/tmp/hf_hub"
+
+for d in ["/tmp/hf_cache", "/tmp/hf_home", "/tmp/hf_hub"]:
+    os.makedirs(d, exist_ok=True)
+
 import torch
+import yaml
 from PIL import Image
+from dotenv import load_dotenv
 from transformers import BlipProcessor, BlipForConditionalGeneration
 from keybert import KeyBERT
-import ollama
-import yaml
+from groq import Groq
 
-with open("params.yaml") as f:
+load_dotenv()  
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+if not GROQ_API_KEY:
+    raise ValueError("Missing GROQ_API_KEY. Please set it in .env ")
+
+client = Groq(api_key=GROQ_API_KEY)
+
+config_path = os.path.join(os.path.dirname(__file__), "params.yaml")
+with open(config_path) as f:
     params = yaml.safe_load(f)
 
 BLIP_MODEL = params["caption"]["model_name"]
@@ -37,12 +57,11 @@ def generate_hashtags(caption, top_k= TOP_K):
 
 def rephrase_caption(base_caption, tone):
     prompt = f'Rewrite the caption "{base_caption}" in a {tone} tone.'
-    response = ollama.chat(
-        model= LLM_MODEL,  
-        messages=[{"role": "user", "content": prompt}]
+    completion = client.chat.completions.create(
+        model=LLM_MODEL,
+        messages=[{"role": "user", "content": prompt}],
     )
-    return response["message"]["content"]
-
+    return completion.choices[0].message.content.strip()
 
 def process_image(image_path):
     caption = generate_caption(image_path)
