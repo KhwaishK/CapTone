@@ -132,7 +132,7 @@ ui:
 ## 🧠 Tech Stack
 - **Transformers** – Hugging Face BLIP model for captioning
 - **KeyBERT** – Keyword extraction for hashtags
-- **Groq API Key (LLaMA 3.1)** – Tone-based rephrasing
+- **Groq (LLaMA 3.1)** – Tone-based rephrasing
 - **Streamlit** – Interactive user interface
 - **PyTorch, Pandas, Pillow, NLTK** – Core ML and evaluation utilities
 
