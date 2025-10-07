@@ -125,3 +125,22 @@ ui:
 ---
 
 ## 🧠 Tech Stack
+- **Transformers** – Hugging Face BLIP model for captioning
+- **KeyBERT** – Keyword extraction for hashtags
+- **Ollama (LLaMA 3.1)** – Tone-based rephrasing
+- **Streamlit** – Interactive user interface
+- **PyTorch, Pandas, Pillow, NLTK** – Core ML and evaluation utilities
+
+---
+
+## 📌 Planned Features
+- Support for multiple image uploads
+- Downloadable rephrased captions and hashtags
+- More tone options (e.g., sarcastic, romantic, dramatic)
+- Option to save results as .csv or .txt
+
+---
+
+## 👩‍💻 Author
+Khwaish Khandelwal
+AI/ML Enthusiast | Computer Vision | NLP | Data Science
