@@ -1,3 +1,21 @@
+import os
+
+# Redirect caches to temporary folders 
+os.environ["TRANSFORMERS_CACHE"] = "/tmp/hf_cache"
+os.environ["HF_HOME"] = "/tmp/hf_home"
+os.environ["HF_HUB_CACHE"] = "/tmp/hf_hub"
+os.makedirs("/tmp/hf_cache", exist_ok=True)
+os.makedirs("/tmp/hf_home", exist_ok=True)
+os.makedirs("/tmp/hf_hub", exist_ok=True)
+
+# Prevent Streamlit permission issues
+os.environ["STREAMLIT_HOME"] = "/tmp/.streamlit"
+os.environ["STREAMLIT_CACHE_DIR"] = "/tmp/.streamlit_cache"
+os.environ["STREAMLIT_DISABLE_USAGE_STATS"] = "true"
+os.makedirs("/tmp/.streamlit", exist_ok=True)
+os.makedirs("/tmp/.streamlit_cache", exist_ok=True)
+
+
 import streamlit as st
 from pipeline import process_image, rephrase_caption
 import yaml
@@ -6,7 +24,8 @@ import yaml
 st.set_page_config(page_title="AI Captioning & Rephrasing Tool", layout="wide")
 
 # Load config
-with open("params.yaml") as f:
+config_path = os.path.join(os.path.dirname(__file__), "params.yaml")
+with open(config_path) as f:
     params = yaml.safe_load(f)
 
 DEFAULT_IMAGE = params["ui"]["test_image"]
