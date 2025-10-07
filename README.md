@@ -153,5 +153,5 @@ Pull requests are welcome! Feel free to open issues to suggest improvements or r
 
 ## 👩‍💻 Author
 Khwaish Khandelwal
-AI/ML Enthusiast | Computer Vision | NLP | Data Science | 
+-AI/ML Enthusiast | Computer Vision | NLP | Data Science | 
 [LinkedIn](https://www.linkedin.com/in/khwaish-khandelwal-543b9725a/) | [GitHub](https://github.com/KhwaishK)
