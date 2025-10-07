@@ -84,12 +84,44 @@ To evaluate BLIP performance on the mini COCO dataset:
 python model_testing.py
 ```
 - Computes BLEU score between generated and ground-truth captions.
-
 - Uses annotations from data/annotations and images from data/mini_val2014.
+  
 You can regenerate your mini subset using:
 ```bash
 python prepare_mini_dataset.py
 ```
 
 ---
+## ⚙️ Configuration (params.yaml)
+Example structure:
+```yaml
+dataset:
+  mini_val_dir: data/mini_val2014
+  val_dir: data/val2014          # original COCO val2014 
+  n_val: 50
 
+evaluation:
+  annotation_path: data/annotations/captions_val2014.json
+
+caption:
+  max_tokens: 30
+  model_name: Salesforce/blip-image-captioning-base
+
+hashtags:
+  top_k: 5
+
+llm:
+  model_name: llama-3.1-8b-instant
+  tones:
+    - Funny
+    - Professional
+    - Poetic
+    - Marketing/ Ad
+
+ui:
+  test_image: Data/samples/cat.jpg
+```
+
+---
+
+## 🧠 Tech Stack
