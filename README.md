@@ -6,7 +6,7 @@ It also includes model evaluation on a mini COCO dataset subset, using **BLEU sc
 ---
 
 ## ✨App Preview
-![App Preview](data/samples/preview.png)
+![App Preview](Data/preview.png)
 
 ---
 
@@ -153,5 +153,5 @@ Pull requests are welcome! Feel free to open issues to suggest improvements or r
 
 ## 👩‍💻 Author
 Khwaish Khandelwal
-AI/ML Enthusiast | Computer Vision | NLP | Data Science
+AI/ML Enthusiast | Computer Vision | NLP | Data Science | 
 [LinkedIn](https://www.linkedin.com/in/khwaish-khandelwal-543b9725a/) | [GitHub](https://github.com/KhwaishK)
